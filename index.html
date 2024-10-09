@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Student Table</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #D5DEEF, #8AAEE0, #628ECB, #395886);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden; /* Prevents horizontal scrolling */
+        }
+
+        h2 {
+            text-align: center;
+            color: #2B3A6D;
+            margin-bottom: 20px;
+            font-size: 2.2em;
+        }
+
+        form {
+            width: 100%; /* Ensures form always takes up the full width */
+            max-width: 900px; /* Prevents form from exceeding screen width */
+            background-color: #F0F3FA;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin: 20px 0;
+            transition: transform 0.3s ease;
+            overflow-x: hidden; /* Prevents content overflow horizontally */
+        }
+
+        form:hover {
+            transform: translateY(-10px);
+        }
+
+        label {
+            font-weight: bold;
+            color: #2B3A6D;
+            margin-top: 10px;
+            display: block;
+            font-size: 1.1em;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            border: 2px solid #8AAEE0;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1em;
+            background-color: #FFFFFF;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: #2B3A6D;
+            outline: none;
+        }
+
+        hr {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: none;
+            border-top: 1px solid #B1C9EF;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            font-size: 0.95em; /* Adjusted for smaller screens */
+        }
+
+        th {
+            background-color: #395886;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #F9F9F9;
+            border-bottom: 1px solid #D5DEEF;
+        }
+
+        td input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 0;
+            box-sizing: border-box;
+            border: 1px solid #B1C9EF;
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+
+        td input[type="text"]:focus {
+            border-color: #395886;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #2B3A6D;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #628ECB;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            form {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+
+            th, td {
+                font-size: 0.9em;
+                padding: 10px;
+            }
+
+            td input[type="text"] {
+                width: 100%;
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            form {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 1.6em;
+            }
+
+            th, td {
+                font-size: 0.85em;
+                padding: 8px;
+            }
+
+            td input[type="text"] {
+                width: 100%;
+                padding: 6px;
+            }
+
+            button[type="submit"] {
+                padding: 12px;
+                font-size: 1.05em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            form {
+                padding: 10px;
+                margin: 10px 0; /* Less margin for very small screens */
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            th, td {
+                font-size: 0.8em;
+                padding: 6px;
+            }
+
+            td input[type="text"] {
+                width: 100%;
+                padding: 5px;
+            }
+
+            button[type="submit"] {
+                padding: 10px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 370px) {
+            h2 {
+                font-size: 1.3em; /* Reduce heading size */
+                margin-bottom: 10px; /* Reduce spacing */
+            }
+
+            form {
+                padding: 8px; /* Tighter padding for smaller screens */
+                margin: 8px 0; /* Less margin */
+                max-width: 100%; /* Make sure the form never exceeds screen width */
+            }
+
+            th, td {
+                font-size: 0.75em; /* Smaller text in the table */
+                padding: 5px; /* Tighter cell padding */
+            }
+
+            td input[type="text"] {
+                padding: 4px; /* Smaller input padding */
+                font-size: 0.8em; /* Smaller input text */
+            }
+
+            button[type="submit"] {
+                padding: 8px;
+                font-size: 0.9em; /* Smaller button text */
+            }
+
+            label {
+                font-size: 0.9em; /* Smaller labels */
+            }
+
+            input[type="text"],
+            input[type="number"] {
+                padding: 8px; /* Smaller input padding */
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Student Attendance Details</h2>
+    <form action="/attendance/fillData/<%=key.students.length%>" method="POST">
+
+        <label for="month">Enter Month Details:</label>
+        <input type="text" name="month" id="month" placeholder="e.g. January" required>
+
+        <label for="session">Enter Session Details:</label>
+        <input type="number" name="session" id="session" placeholder="e.g. 1 or 2" required>
+
+        <hr>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Roll No.</th>
+                    <th>Percentage</th>
+                    <th>BackLogs</th>
+                    <th>FeeDues</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(let i=0;i<key.students.length;i++){%>
+                    <tr>
+                        <td><input type="text" name="stuName[<%=i%>]" value="<%=key.students[i].name%>" ></td>
+                        <td><input type="text" name="stuRollno[<%=i%>]" value="<%=key.students[i].rollNo%>" ></td>
+                        <td><input type="text" name="stuPct[<%=i%>]" placeholder="Enter percentage" value="0%"></td>
+                        <td><input type="text" name="stuBL[<%=i%>]" placeholder="Enter Backlogs" value="0" ></td>
+                        <td><input type="text" name="stuDues[<%=i%>]" placeholder="Enter FeeDues" value="0" ></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+
+        <button type="submit">Submit Attendance</button>
+    </form>
+</body>
+</html>
